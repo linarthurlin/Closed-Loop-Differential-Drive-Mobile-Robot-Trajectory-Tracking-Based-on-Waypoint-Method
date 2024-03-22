@@ -1,0 +1,66 @@
+classdef PIDController < handle
+    properties
+        cteKp
+        cteKi
+        cteKd
+        cteprevError
+        ctesumError
+        intergral
+        activated
+        center
+        distance
+        radiusICR
+        curvature
+        targetdirection
+        pathplan
+        timestamp
+        ErrorVector
+        CrossTrackError
+        PoseErrorVector
+    end
+
+    methods (Static)
+        function obj = Init()
+            global points;
+            obj.activated = false;
+            obj.center = [0 0 0];
+            obj.distance = 0;
+            obj.radiusICR = [];
+            obj.curvature = [];
+            obj.targetdirection = [0 0];
+            obj.pathplan = zeros(points,3);
+            obj.timestamp = 0;
+            obj.ErrorVector = [];
+            obj.CrossTrackError = [];
+            obj.PoseErrorVector = [];
+        end
+
+        function obj = PIDCrossTrackError(Kp, Ki, Kd)
+            obj.Kp = Kp;
+            obj.Ki = Ki;
+            obj.Kd = K;
+            obj.prevError = 0;
+            obj.sumError = 0;
+        end
+
+        function output = update(obj, error, dt)
+            % 比例項
+            proportional = obj.Kp*error;
+            
+            % 積分項
+            obj.intergral = obj.intergral+error*dt;
+            integral = obj.Ki*obj.intergral;
+
+            % 微分項
+            derivative = obj.Kd*(error-obj.prevError)/dt;
+
+            output = proportional+integral+derivative;
+            obj.prevError = error;
+        end
+
+        function updateState(obj, error)
+            obj.prevError = error;
+            obj.intergral = 0;
+        end
+    end
+end
