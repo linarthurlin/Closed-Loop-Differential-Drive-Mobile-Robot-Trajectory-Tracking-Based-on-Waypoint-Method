@@ -5,3 +5,12 @@ The project is about ***Waypoin Control***, a method of trajectory tracking, on 
 
 ## Tools
 MATLAB, CoppeliaSim
+
+## Methods
+![Flowchart](Results/flowchart.drawio.png)
+
+## Results
+![Running the robot in CoppeliaSim](Results/CoppeliaSim.png)
+![Recorded trajectory points](Results/Trajectory_Points.png)
+![Measured distance error](Results/Distance_Error.png)
+![Measured Cross-track error](Results/Crosstrack_Error.png)
